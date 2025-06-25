@@ -3,51 +3,84 @@
 
     .container {
         padding: 0;
-    }
-
-    /************************** SOBRE ***/
+    }    /************************** SOBRE ***/
     .sobre {
         height: auto;
+        padding: 5rem 1rem;
     }
 
     .container-sobre {
         height: auto;
+        max-width: 800px;
+        margin: 0 auto;
     }
-    
-    .headline-sobre {
+      .conteudo-sobre {
+        flex-direction: column;
         height: auto;
-        position: relative;
-    }
-
-    .conteudo-sobre {
-        flex-direction: column-reverse;
-        height: auto;
-        gap: 3rem;
+        gap: 6rem;
+        align-items: center;
     }
 
     .left-sobre {
         width: 100%;
         height: auto;
-    }
-
-    .right-sobre {
+        order: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }    .right-sobre {
         width: 100%;
         height: auto;
+        order: 1;
+        margin-bottom: 6rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .imagem-sobre {
         justify-content: center;
+        max-width: 280px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .imagem-sobre img {
+        width: 100%;
+        height: auto;
+        max-width: 280px;
+        border-radius: 20px;
+        display: block;
+    }
+
+    .textos-sobre {
+        text-align: center;
+        padding: 0 2rem;
+        width: 100%;
+        max-width: 700px;
+    }
+
+    .textos-sobre h1 {
+        margin-bottom: 2.5rem;
+        font-size: 2.5rem;
+        line-height: 1.2;
+    }
+
+    .textos-sobre p {
+        margin-bottom: 3rem;
+        line-height: 1.6;
+        font-size: 1.1rem;
+    }
+
+    .redes-sociais {
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+        width: 100%;
     }
 
     .complemento-sobre {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .complemento-sobre img {
-        position: unset;
-        width: 100%;
+        display: none;
     }
 
     /************************** SERVIÇOS ***/
@@ -72,66 +105,77 @@
         width: 100%;
         text-align: right;
         font-size: 1.4rem;
-    }
-
-    /************************** PORTFOLIO ***/
+    }    /************************** PORTFOLIO ***/
 
     .container-portfolio {
-        gap: 2rem;
-        padding: 2rem 1rem;
+        gap: 3rem;
+        padding: 3rem 1rem;
     }
 
     .headline-portfolio {
         flex-direction: column;
         height: auto;
+        margin-bottom: 2rem;
     }
 
     .headline-portfolio .titulo {
         width: 100%;
         display: flex;
         align-items: center;
-        justify-content: left;
+        justify-content: center;
+        text-align: center;
+        margin-bottom: 1rem;
     }
 
     .headline-portfolio .titulo {
-        font-size: 6rem;
+        font-size: 5rem;
     }
 
     .headline-portfolio .descricao {
         width: 100%;
-        text-align: right;
+        text-align: center;
         font-size: 1.4rem;
-    }
-
-    .container-case {
-        gap: 2rem;
-    }
-
-    .case1,
-    .case3 {
-        flex-direction: column;
-        gap: 1rem;
-        height: auto;
-        justify-content: center;
-    }
-
-    .case2, 
+    }    .container-case {
+        gap: 4rem;
+    }    .case1,
+    .case2,
+    .case3,
     .case4 {
-        flex-direction: column-reverse;
-        gap: 1rem;
-        height: auto;
+        flex-direction: column;
+        gap: 2rem;
         height: auto;
         justify-content: center;
     }
     
     .imagens-case {
         width: 100%;
-        height: 60vh
+        height: 50vh;
+        margin-bottom: 1rem;
+        order: 1; /* Sempre imagem primeiro */
     }
 
     .textos-case {
         width: 100%;
-        height: 35vh;
+        height: auto;
+        min-height: 200px;
+        padding: 1rem 0;
+        order: 2; /* Sempre texto segundo */
+    }
+
+    .conteudo-textos-case {
+        padding: 1rem;
+    }
+
+    .conteudo-textos-case h1 {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+
+    .conteudo-textos-case p {
+        font-size: 1.1rem;
+        line-height: 1.4;
+        margin-bottom: 1.5rem;
     }
 
     /************************** CONTATO ***/
@@ -159,12 +203,21 @@
 
     .titulo-contato h1 {
         font-size: 6rem;
+    }    .descricao-contato {
+        width: 100%;
+        text-align: left;
+        font-size: 1.4rem;
+        margin-top: 1rem;
     }
 
-    .descricao-contato {
-        width: 100%;
-        text-align: right;
-        font-size: 1.4rem;
+    .lista-contato {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .lista-contato li {
+        margin-bottom: 0.8rem;
     }
 
     .descricao-contato a {
@@ -201,5 +254,97 @@
         width: auto;
         text-align: right;
         margin-top: 0;
+    }
+}
+
+/* Responsividade específica para tablets médios */
+@media (max-width: 1024px) and (min-width: 768px) {
+    
+    /************************** SOBRE ***/
+    .sobre {
+        padding: 6rem 2rem;
+    }
+
+    .container-sobre {
+        max-width: 900px;
+    }    .conteudo-sobre {
+        gap: 6rem;
+    }
+
+    .right-sobre {
+        margin-bottom: 5rem;
+    }
+
+    .imagem-sobre {
+        max-width: 400px;
+    }
+
+    .imagem-sobre img {
+        max-width: 350px;
+    }
+
+    .textos-sobre {
+        padding: 0 3rem;
+        max-width: 800px;
+    }
+
+    .textos-sobre h1 {
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .textos-sobre p {
+        font-size: 1.3rem;
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto 2.5rem auto;
+        line-height: 1.6;
+    }
+
+    .redes-sociais {
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    /************************** PORTFOLIO ***/
+    .case1,
+    .case2,
+    .case3,
+    .case4 {
+        flex-direction: column;
+        gap: 2rem;
+        height: auto;
+        justify-content: center;
+    }
+    
+    .imagens-case {
+        width: 100%;
+        height: 45vh;
+        order: 1; /* Sempre imagem primeiro */
+    }
+
+    .textos-case {
+        width: 100%;
+        height: auto;
+        order: 2; /* Sempre texto segundo */
+    }
+
+    .conteudo-textos-case h1 {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+
+    .conteudo-textos-case p {
+        font-size: 1.2rem;
+        text-align: center;
+        max-width: 500px;
+        margin: 0 auto 1.5rem auto;
+    }
+
+    .conteudo-textos-case span {
+        display: flex;
+        justify-content: center;
     }
 }
