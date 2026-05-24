@@ -17,9 +17,9 @@ test.describe('Botões flutuantes', () => {
     await expect(whatsappBtn).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
-  test('botão WhatsApp aponta para wa.me/5585986303253', async ({ page }) => {
+  test('botão WhatsApp aponta para wa.me/5585986032781', async ({ page }) => {
     const whatsappBtn = page.locator('#floating-buttons a[href*="wa.me"]');
-    await expect(whatsappBtn).toHaveAttribute('href', /wa\.me\/5585986303253/);
+    await expect(whatsappBtn).toHaveAttribute('href', /wa\.me\/5585986032781/);
   });
 
   test('backToTop faz scroll para o topo — BR-MIGRAR-013', async ({ page }) => {

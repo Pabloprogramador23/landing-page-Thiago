@@ -22,8 +22,8 @@ export const SITE_CONFIG: SiteConfig = {
     "problemas reais — do banco de dados ao deploy.",
   brandName: "PabloTech",
   email: "pablomagalhes@gmail.com",
-  whatsappNumber: "5585986303253",
-  whatsappDisplay: "+55 85 9 8630-3253",
+  whatsappNumber: "5585986032781",
+  whatsappDisplay: "+55 85 9 8603-2781",
   githubUrl: "https://github.com/Pabloprogramador23",
   linkedinUrl: "https://linkedin.com/in/pablo-magalh%C3%A3es-384581219/",
   siteUrl: "https://pablo-portfolio.vercel.app", // TODO LC-03: atualizar após criar projeto no Vercel

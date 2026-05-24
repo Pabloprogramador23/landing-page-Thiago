@@ -60,7 +60,7 @@ test.describe('Formulário de contato', () => {
 
   test('formatação automática de telefone 11 dígitos — BR-MIGRAR-037', async ({ page }) => {
     await page.fill('#telefone', '85986303253');
-    await expect(page.locator('#telefone')).toHaveValue('(85) 98630-3253');
+    await expect(page.locator('#telefone')).toHaveValue('(85) 98603-2781');
   });
 
   test('happy path — formulário válido abre wa.me — BR-MIGRAR-038', async ({ page, context }) => {
@@ -75,7 +75,7 @@ test.describe('Formulário de contato', () => {
 
     const newPage = await newPagePromise;
     // WhatsApp redireciona wa.me para api.whatsapp.com — ambas são URLs válidas do WhatsApp
-    expect(newPage.url()).toMatch(/5585986303253/);
+    expect(newPage.url()).toMatch(/5585986032781/);
     expect(newPage.url()).toMatch(/whatsapp\.com|wa\.me/);
     await newPage.close();
   });
@@ -98,7 +98,7 @@ test.describe('Formulário de contato', () => {
   });
 
   test('informações de contato direto visíveis — BR-MIGRAR-042', async ({ page }) => {
-    await expect(page.locator('#contato').getByText('+55 85 9 8630-3253')).toBeVisible();
+    await expect(page.locator('#contato').getByText('+55 85 9 8603-2781')).toBeVisible();
     await expect(page.locator('#contato').getByText('pablomagalhes@gmail.com')).toBeVisible();
     await expect(page.locator('#contato a[href*="linkedin"]')).toBeVisible();
   });
