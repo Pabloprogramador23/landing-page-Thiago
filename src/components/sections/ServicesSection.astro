@@ -1,0 +1,81 @@
+---
+import { SERVICES } from '../../data/services';
+import { Icon } from 'astro-icon/components';
+---
+
+<section
+  id="servicos"
+  class="section-padding"
+  style="background: var(--color-bg-surface)"
+>
+  <div class="container-base">
+
+    <!-- Cabeçalho -->
+    <div class="text-center mb-16">
+      <span
+        class="inline-block text-xs font-mono uppercase tracking-widest mb-3 px-3 py-1 rounded-full"
+        style="color: var(--color-accent-warm); background: var(--color-accent-primary-light)"
+      >
+        O que eu faço
+      </span>
+      <h2
+        class="font-heading font-bold text-3xl md:text-4xl"
+        style="color: var(--color-text-primary)"
+      >
+        Serviços
+      </h2>
+    </div>
+
+    <!-- Lista de cards pill com layout alternado -->
+    <div class="flex flex-col gap-4 max-w-3xl mx-auto">
+      {SERVICES.map((service, index) => (
+        <div
+          class={`service-card inline-flex items-center gap-4 px-8 py-5 rounded-full transition-all duration-300 cursor-default max-w-[85%] md:max-w-[65%] ${index % 2 === 0 ? 'mr-auto' : 'ml-auto'}`}
+          style="background: var(--color-bg-card); border: 1px solid var(--color-border)"
+        >
+          <!-- Ícone -->
+          <div
+            class="icon-wrapper w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300"
+            style="background: color-mix(in srgb, var(--color-accent-primary) 10%, transparent)"
+          >
+            <Icon
+              name={service.icon}
+              class="w-5 h-5"
+              style="color: var(--color-accent-primary)"
+              aria-hidden="true"
+            />
+          </div>
+
+          <!-- Conteúdo -->
+          <div>
+            <p
+              class="font-heading font-semibold text-sm md:text-base leading-tight"
+              style="color: var(--color-text-primary)"
+            >
+              {service.title}
+            </p>
+            <p
+              class="text-xs md:text-sm leading-relaxed mt-0.5"
+              style="color: var(--color-text-secondary)"
+            >
+              {service.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .service-card:hover {
+    border-color: color-mix(in srgb, var(--color-accent-primary) 50%, transparent);
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--color-accent-primary) 12%, transparent);
+  }
+
+  .service-card:hover .icon-wrapper {
+    background: color-mix(in srgb, var(--color-accent-primary) 20%, transparent) !important;
+  }
+</style>

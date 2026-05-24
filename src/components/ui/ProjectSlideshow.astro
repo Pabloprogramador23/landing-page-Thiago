@@ -1,0 +1,120 @@
+---
+import type { Project } from '../../data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const slideshowId = `slideshow-${project.id}`;
+const imageCount = project.images.length;
+---
+
+<div
+  id={slideshowId}
+  class="relative overflow-hidden rounded-xl"
+  style="aspect-ratio: 16/9; background: var(--color-bg-surface)"
+  aria-label={`Imagens do projeto ${project.title}`}
+  role="region"
+>
+  <!-- Imagens sobrepostas via opacity -->
+  {project.images.map((image, i) => (
+    <img
+      src={`/images/${image.src}`}
+      alt={image.alt}
+      loading="lazy"
+      width="640"
+      height="360"
+      class={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
+      data-slide={i}
+    />
+  ))}
+
+  <!-- Botão anterior -->
+  <button
+    data-action="prev"
+    aria-label="Imagem anterior"
+    class="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 z-10"
+    style="background: color-mix(in srgb, var(--color-bg-base) 70%, transparent); color: var(--color-text-primary)"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+    </svg>
+  </button>
+
+  <!-- Botão próximo -->
+  <button
+    data-action="next"
+    aria-label="Próxima imagem"
+    class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 z-10"
+    style="background: color-mix(in srgb, var(--color-bg-base) 70%, transparent); color: var(--color-text-primary)"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+    </svg>
+  </button>
+
+  <!-- Indicadores dot -->
+  {imageCount > 1 && (
+    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10" aria-hidden="true">
+      {project.images.map((_, i) => (
+        <span
+          class={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-white' : 'bg-white/40'}`}
+          data-dot={i}
+        />
+      ))}
+    </div>
+  )}
+</div>
+
+<!-- Script inline por instância — IIFE garante estado isolado sem poluir escopo global -->
+<script is:inline define:vars={{ slideshowId, imageCount }}>
+  (function () {
+    const container = document.getElementById(slideshowId);
+    if (!container || imageCount <= 1) return;
+
+    const imgs = container.querySelectorAll('[data-slide]');
+    const dots = container.querySelectorAll('[data-dot]');
+    let current = 0;
+
+    function updateDisplay() {
+      imgs.forEach(function (img, i) {
+        img.classList.toggle('opacity-100', i === current);
+        img.classList.toggle('opacity-0', i !== current);
+      });
+      dots.forEach(function (dot, i) {
+        dot.classList.toggle('bg-white', i === current);
+        dot.classList.toggle('bg-white/40', i !== current);
+      });
+    }
+
+    // Autoplay 3s — BR-MIGRAR-030
+    var timer = setInterval(function () {
+      current = (current + 1) % imageCount;
+      updateDisplay();
+    }, 3000);
+
+    // Navegação manual não cancela autoplay — BR-MIGRAR-031
+    container.querySelector('[data-action="prev"]').addEventListener('click', function () {
+      current = (current - 1 + imageCount) % imageCount;
+      updateDisplay();
+    });
+
+    container.querySelector('[data-action="next"]').addEventListener('click', function () {
+      current = (current + 1) % imageCount;
+      updateDisplay();
+    });
+
+    // Limpa o timer ao navegar — DA-007 / BR-DESCARTAR-010
+    document.addEventListener('astro:before-preparation', function () {
+      clearInterval(timer);
+    }, { once: true });
+  })();
+</script>
+
+<style>
+  [data-action="prev"]:hover,
+  [data-action="next"]:hover {
+    background: var(--color-bg-base) !important;
+  }
+</style>

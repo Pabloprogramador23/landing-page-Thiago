@@ -1,0 +1,109 @@
+---
+import { SITE_CONFIG } from '../data/site';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = SITE_CONFIG.ownerName + ' — ' + SITE_CONFIG.ownerTitle,
+  description = SITE_CONFIG.ownerBio,
+  ogImage = SITE_CONFIG.ogImage ?? '/images/og-image.png',
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, SITE_CONFIG.siteUrl).toString();
+const ogImageUrl = new URL(ogImage, SITE_CONFIG.siteUrl).toString();
+
+const schemaPerson = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE_CONFIG.ownerName,
+  jobTitle: SITE_CONFIG.ownerTitle,
+  email: SITE_CONFIG.email,
+  url: SITE_CONFIG.siteUrl,
+  sameAs: [SITE_CONFIG.githubUrl, SITE_CONFIG.linkedinUrl],
+};
+---
+
+<!doctype html>
+<html lang={SITE_CONFIG.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO primário -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={SITE_CONFIG.brandName} />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- schema.org/Person (DA-011, BR-MIGRAR-052) -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaPerson)} />
+
+    <!-- Plausible Analytics — sem cookies, LGPD-friendly (AMB-005) -->
+    <!-- TODO LC-03: atualizar data-domain após deploy no Vercel -->
+    <script
+      defer
+      data-domain="pablo-portfolio.vercel.app"
+      src="https://plausible.io/js/script.js"
+    ></script>
+
+    <!-- Dark mode inline — roda antes do primeiro paint para evitar flash -->
+    <script is:inline>
+      (function () {
+        var theme = localStorage.getItem('theme');
+        // Default: dark. Só aplica light se explicitamente salvo.
+        if (theme !== 'light') {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <slot />
+
+    <!-- Toggle de tema — exposto como função global usada pelo Header -->
+    <script is:inline>
+      window.__toggleTheme = function () {
+        var root = document.documentElement;
+        var isDark = root.classList.contains('dark');
+        root.classList.add('transitioning');
+        if (isDark) {
+          root.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+        } else {
+          root.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+        }
+        setTimeout(function () {
+          root.classList.remove('transitioning');
+        }, 300);
+      };
+    </script>
+  </body>
+</html>

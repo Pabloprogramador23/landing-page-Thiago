@@ -1,0 +1,136 @@
+---
+import { SITE_CONFIG } from '../../data/site';
+import ExternalLink from '../ui/ExternalLink.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<section
+  id="sobre"
+  class="section-padding"
+  style="background: var(--color-bg-surface)"
+>
+  <div class="container-base">
+
+    <!-- Cabeçalho da seção -->
+    <div class="text-center mb-16">
+      <span
+        class="inline-block text-xs font-mono uppercase tracking-widest mb-3 px-3 py-1 rounded-full"
+        style="color: var(--color-accent-warm); background: var(--color-accent-primary-light)"
+      >
+        Sobre mim
+      </span>
+      <h2
+        class="font-heading font-bold text-3xl md:text-4xl"
+        style="color: var(--color-text-primary)"
+      >
+        Quem é Pablo?
+      </h2>
+    </div>
+
+    <!-- Grid: foto + texto -->
+    <div class="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
+
+      <!-- Coluna esquerda — foto -->
+      <div class="flex justify-center md:justify-end order-1">
+        <div class="relative">
+          <!-- Anel decorativo -->
+          <div
+            class="absolute -inset-1 rounded-2xl opacity-30 blur-sm"
+            style="background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-warm))"
+            aria-hidden="true"
+          ></div>
+          <img
+            src="/images/pablo-foto.jpg"
+            alt="Foto de Pablo Magalhães"
+            loading="lazy"
+            width="380"
+            height="460"
+            class="relative rounded-2xl object-cover w-72 h-80 md:w-80 md:h-96 lg:w-96 lg:h-[28rem]"
+            style="ring: 2px solid color-mix(in srgb, var(--color-accent-primary) 30%, transparent); box-shadow: 0 20px 60px color-mix(in srgb, var(--color-accent-primary) 20%, transparent)"
+          />
+        </div>
+      </div>
+
+      <!-- Coluna direita — texto -->
+      <div class="order-2">
+
+        <!-- Nome -->
+        <h3
+          class="font-heading font-bold text-2xl md:text-3xl mb-2"
+          style="color: var(--color-text-primary)"
+        >
+          {SITE_CONFIG.ownerName}
+        </h3>
+
+        <!-- Título profissional -->
+        <p
+          class="font-heading font-semibold text-lg mb-6"
+          style="color: var(--color-accent-primary)"
+        >
+          {SITE_CONFIG.ownerTitle}
+        </p>
+
+        <!-- Bio completa (ATS-otimizada) -->
+        <p
+          class="text-base leading-relaxed mb-4"
+          style="color: var(--color-text-secondary)"
+        >
+          Sou desenvolvedor back-end com foco em <strong style="color: var(--color-text-primary)">Python e Django</strong>,
+          especializado na construção de aplicações web robustas, APIs RESTful e sistemas de gestão empresarial.
+        </p>
+        <p
+          class="text-base leading-relaxed mb-4"
+          style="color: var(--color-text-secondary)"
+        >
+          Trabalho com automações inteligentes usando <strong style="color: var(--color-text-primary)">IA e LLMs</strong>
+          (LangChain, CrewAI, RAG) para criar soluções que vão além do código convencional —
+          agentes autônomos, processamento de linguagem natural e pipelines de dados.
+        </p>
+        <p
+          class="text-base leading-relaxed mb-8"
+          style="color: var(--color-text-secondary)"
+        >
+          Do banco de dados ao deploy no Docker/Vercel, entrego produtos completos que resolvem
+          problemas reais com tecnologia acessível e bem documentada.
+        </p>
+
+        <!-- Links sociais -->
+        <div class="flex gap-4">
+          <ExternalLink
+            href={SITE_CONFIG.githubUrl}
+            ariaLabel="GitHub de Pablo Magalhães"
+            class="social-link flex items-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm transition-all duration-300"
+          >
+            <Icon name="bi:github" class="w-5 h-5" aria-hidden="true" />
+            GitHub
+          </ExternalLink>
+
+          <ExternalLink
+            href={SITE_CONFIG.linkedinUrl}
+            ariaLabel="LinkedIn de Pablo Magalhães"
+            class="social-link flex items-center gap-2 px-4 py-2 rounded-xl font-semibold text-sm transition-all duration-300"
+          >
+            <Icon name="bi:linkedin" class="w-5 h-5" aria-hidden="true" />
+            LinkedIn
+          </ExternalLink>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .social-link {
+    color: var(--color-text-primary);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+  }
+
+  .social-link:hover {
+    background: var(--color-accent-primary-light);
+    color: var(--color-accent-primary);
+    border-color: var(--color-accent-primary);
+    transform: translateY(-2px);
+  }
+</style>

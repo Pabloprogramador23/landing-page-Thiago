@@ -1,0 +1,29 @@
+---
+import { SITE_CONFIG } from '../data/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import HeroSection from '../components/sections/HeroSection.astro';
+import AboutSection from '../components/sections/AboutSection.astro';
+import SkillsSection from '../components/sections/SkillsSection.astro';
+import ServicesSection from '../components/sections/ServicesSection.astro';
+import PortfolioSection from '../components/sections/PortfolioSection.astro';
+import ContactSection from '../components/sections/ContactSection.astro';
+
+const title = `${SITE_CONFIG.ownerName} — ${SITE_CONFIG.ownerTitle}`;
+const description = SITE_CONFIG.ownerBio;
+const ogImage = SITE_CONFIG.ogImage;
+---
+
+<BaseLayout title={title} description={description} ogImage={ogImage}>
+  <Header />
+  <main>
+    <HeroSection />      <!-- #inicio  -->
+    <AboutSection />     <!-- #sobre   -->
+    <SkillsSection />    <!-- #skills  -->
+    <ServicesSection />  <!-- #servicos -->
+    <PortfolioSection /> <!-- #portfolio -->
+    <ContactSection />   <!-- #contato  -->
+  </main>
+  <Footer />
+</BaseLayout>

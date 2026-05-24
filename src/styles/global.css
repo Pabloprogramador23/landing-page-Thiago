@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+/* Fontes via @fontsource (self-hosted, sem CDN) */
+@import "@fontsource/plus-jakarta-sans/400.css";
+@import "@fontsource/plus-jakarta-sans/600.css";
+@import "@fontsource/plus-jakarta-sans/700.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+
+/* Dark mode via class strategy (Tailwind v4) */
+@variant dark (&:where(.dark, .dark *));
+
+/* Tokens customizados registrados no tema Tailwind v4
+   Cria utilitários: font-heading, font-body, font-mono
+   e cores: bg-whatsapp, text-whatsapp, animate-pulse-slow */
+@theme {
+  --font-heading: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-whatsapp: #25d366;
+  --color-whatsapp-hover: #1da851;
+
+  --animate-pulse-slow: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ─── TOKENS SEMÂNTICOS — LIGHT MODE (padrão CSS) ──────────────────────── */
+:root {
+  /* Backgrounds */
+  --color-bg-base: #f8fafc;
+  --color-bg-surface: #f0f9ff;
+  --color-bg-card: #ffffff;
+  --color-bg-card-hover: #e0f2fe;
+
+  /* Accent — azul/laranja */
+  --color-accent-primary: #0ea5e9;
+  --color-accent-primary-hover: #0284c7;
+  --color-accent-primary-light: rgba(14, 165, 233, 0.1);
+  --color-accent-warm: #f97316;
+  --color-accent-warm-hover: #ea580c;
+
+  /* Texto */
+  --color-text-primary: #0c1f2e;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+
+  /* Bordas */
+  --color-border: #bae6fd;
+  --color-border-strong: #7dd3fc;
+
+  /* Estados */
+  --color-error: #dc2626;
+  --color-success: #059669;
+
+  /* Sombras */
+  --shadow-card: 0 10px 15px -3px rgba(14, 165, 233, 0.15);
+}
+
+/* ─── TOKENS SEMÂNTICOS — DARK MODE ────────────────────────────────────── */
+.dark {
+  /* Backgrounds */
+  --color-bg-base: #0d0a1a;
+  --color-bg-surface: #130c2a;
+  --color-bg-card: #1a1035;
+  --color-bg-card-hover: #211444;
+
+  /* Accent — roxo/amarelo */
+  --color-accent-primary: #7c3aed;
+  --color-accent-primary-hover: #6d28d9;
+  --color-accent-primary-light: rgba(124, 58, 237, 0.15);
+  --color-accent-warm: #fbbf24;
+  --color-accent-warm-hover: #f59e0b;
+
+  /* Texto */
+  --color-text-primary: #f5f3ff;
+  --color-text-secondary: #c4b5fd;
+  --color-text-muted: #7c6fab;
+
+  /* Bordas */
+  --color-border: rgba(124, 58, 237, 0.25);
+  --color-border-strong: rgba(124, 58, 237, 0.5);
+
+  /* Estados */
+  --color-error: #f87171;
+  --color-success: #34d399;
+
+  /* Sombras */
+  --shadow-card: 0 10px 15px -3px rgba(124, 58, 237, 0.2);
+}
+
+/* ─── BASE STYLES ───────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  /* espaço para o header fixo ao navegar por âncoras */
+  scroll-padding-top: 5rem;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Transição suave ao trocar tema — evita flash */
+html.transitioning,
+html.transitioning * {
+  transition: background-color 300ms ease, color 300ms ease,
+    border-color 300ms ease !important;
+}
+
+/* ─── UTILITÁRIOS DE LAYOUT (usados em múltiplos componentes) ───────────── */
+.section-padding {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+.container-base {
+  max-width: 72rem; /* max-w-6xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-base {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-base {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}

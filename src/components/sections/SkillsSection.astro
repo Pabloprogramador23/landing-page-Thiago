@@ -1,0 +1,81 @@
+---
+import { SKILLS } from '../../data/skills';
+import { Icon } from 'astro-icon/components';
+---
+
+<section
+  id="skills"
+  class="section-padding"
+  style="background: var(--color-bg-base)"
+>
+  <div class="container-base">
+
+    <!-- Cabeçalho -->
+    <div class="text-center mb-16">
+      <span
+        class="inline-block text-xs font-mono uppercase tracking-widest mb-3 px-3 py-1 rounded-full"
+        style="color: var(--color-accent-warm); background: var(--color-accent-primary-light)"
+      >
+        Stack técnico
+      </span>
+      <h2
+        class="font-heading font-bold text-3xl md:text-4xl"
+        style="color: var(--color-text-primary)"
+      >
+        Competências Técnicas
+      </h2>
+    </div>
+
+    <!-- Grid de cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {SKILLS.map((skill) => (
+        <div class="skill-card rounded-2xl p-6 transition-all duration-300 group"
+          style="background: var(--color-bg-card); border: 1px solid var(--color-border)"
+        >
+          <!-- Ícone -->
+          <div
+            class="icon-wrapper w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-all duration-300"
+            style="background: color-mix(in srgb, var(--color-accent-primary) 10%, transparent)"
+          >
+            <Icon
+              name={skill.icon}
+              class="w-6 h-6"
+              style="color: var(--color-accent-primary)"
+              aria-hidden="true"
+            />
+          </div>
+
+          <!-- Título -->
+          <h3
+            class="font-heading font-semibold text-lg mb-2"
+            style="color: var(--color-text-primary)"
+          >
+            {skill.title}
+          </h3>
+
+          <!-- Descrição -->
+          <p
+            class="text-sm leading-relaxed"
+            style="color: var(--color-text-secondary)"
+          >
+            {skill.description}
+          </p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .skill-card:hover {
+    border-color: color-mix(in srgb, var(--color-accent-primary) 50%, transparent);
+    background: var(--color-bg-card-hover) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px color-mix(in srgb, var(--color-accent-primary) 12%, transparent);
+  }
+
+  .skill-card:hover .icon-wrapper {
+    background: color-mix(in srgb, var(--color-accent-primary) 20%, transparent) !important;
+  }
+</style>

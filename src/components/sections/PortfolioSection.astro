@@ -1,0 +1,116 @@
+---
+import { PROJECTS } from '../../data/projects';
+import ProjectSlideshow from '../ui/ProjectSlideshow.astro';
+import ExternalLink from '../ui/ExternalLink.astro';
+---
+
+<section
+  id="portfolio"
+  class="section-padding"
+  style="background: var(--color-bg-base)"
+>
+  <div class="container-base">
+
+    <!-- Cabeçalho -->
+    <div class="text-center mb-16">
+      <span
+        class="inline-block text-xs font-mono uppercase tracking-widest mb-3 px-3 py-1 rounded-full"
+        style="color: var(--color-accent-warm); background: var(--color-accent-primary-light)"
+      >
+        Cases
+      </span>
+      <h2
+        class="font-heading font-bold text-3xl md:text-4xl"
+        style="color: var(--color-text-primary)"
+      >
+        Portfolio
+      </h2>
+    </div>
+
+    <!-- Lista de projetos -->
+    <div class="flex flex-col gap-16">
+      {PROJECTS.map((project, index) => {
+        const isEven = index % 2 !== 0;
+        return (
+          <div
+            class="grid md:grid-cols-2 gap-8 lg:gap-12 items-center rounded-2xl p-6 md:p-8"
+            style="background: var(--color-bg-card); border: 1px solid var(--color-border)"
+          >
+            <!-- Coluna do slideshow — alterna ordem -->
+            <div class={isEven ? 'md:order-2' : 'md:order-1'}>
+              <ProjectSlideshow project={project} />
+            </div>
+
+            <!-- Coluna de informações -->
+            <div class={isEven ? 'md:order-1' : 'md:order-2'}>
+
+              <!-- Tech tags -->
+              <div class="flex flex-wrap gap-2 mb-4">
+                {project.tech.map((tag) => (
+                  <span
+                    class="text-xs font-mono px-3 py-1 rounded-full"
+                    style="background: color-mix(in srgb, var(--color-accent-primary) 10%, transparent); color: var(--color-accent-primary)"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <!-- Título -->
+              <h3
+                class="font-heading font-bold text-xl md:text-2xl mb-3"
+                style="color: var(--color-text-primary)"
+              >
+                {project.title}
+              </h3>
+
+              <!-- Descrição -->
+              <p
+                class="text-sm md:text-base leading-relaxed mb-4"
+                style="color: var(--color-text-secondary)"
+              >
+                {project.description}
+              </p>
+
+              <!-- Impact (se presente) -->
+              {project.impact && (
+                <p
+                  class="text-sm font-semibold mb-6"
+                  style="color: var(--color-accent-warm)"
+                >
+                  ✦ {project.impact}
+                </p>
+              )}
+
+              <!-- Link externo (se presente) -->
+              {project.link && project.linkLabel && (
+                <ExternalLink
+                  href={project.link}
+                  class="project-link inline-flex items-center gap-2 font-semibold text-sm transition-all duration-200"
+                >
+                  {project.linkLabel}
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                  </svg>
+                </ExternalLink>
+              )}
+
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .project-link {
+    color: var(--color-accent-primary);
+  }
+
+  .project-link:hover {
+    color: var(--color-accent-primary-hover);
+    gap: 0.625rem;
+  }
+</style>
